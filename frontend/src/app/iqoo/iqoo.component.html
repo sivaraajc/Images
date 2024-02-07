@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let admin of admin; let i = index">
+      <div class="card mb-4 shadow-sm">
+        <img [src]="getImageSrc(admin.id)" (load)="onImageLoad()" class="card-img-top" alt="Product Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ admin.product_name }}</h5>
+          <p class="card-text">{{ admin.content }}</p>
+          <p class="card-text">Price: {{ admin.price }}</p>
+          <button class="btn btn-primary" (click)="openModal(admin)">View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': selectedAdmin}" id="productModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedAdmin?.product_name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-4 shadow-sm">
+          <img *ngIf="selectedAdmin" [src]="getImageSrc(selectedAdmin?.id)" (load)="onImageLoad()" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <p class="card-text">{{ selectedAdmin?.content }}</p>
+            <p>Price: {{ selectedAdmin?.price }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
